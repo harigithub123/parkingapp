@@ -20,7 +20,7 @@ public class ParkingLot {
         System.out.println("Created a parking lot with " + this.noOfSlots + " slots");
     }
 
-    public void processCommand(String stringCommand) {
+    public void run(String stringCommand) {
         String[] values = stringCommand.split(" ");
         Command command = StringCommandParser.toCommand(values[0]);
         if (isNull(command)) {
