@@ -7,7 +7,7 @@ public class RemoveCommand implements Command {
     @Override
     public void execute(ParkingLot parkingLot, String[] args) {
         int slot = Integer.parseInt(args[1]);
-        parkingLot.getParkingSlots().get(slot-1).removeVehicle();
+        parkingLot.removeVehicle(slot);
         System.out.println("Slot number " + slot + " is free");
     }
 }

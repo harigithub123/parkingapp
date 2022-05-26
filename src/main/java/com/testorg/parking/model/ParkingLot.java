@@ -6,7 +6,7 @@ import com.testorg.parking.parser.StringCommandParser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -51,5 +51,42 @@ public class ParkingLot {
 
     public List<Slot> getParkingSlots() {
         return parkingSlots;
+    }
+
+    public void removeVehicle(int slot) {
+        this.parkingSlots.get(slot - 1).removeVehicle();
+    }
+
+    /*
+    ideally We should return response object so that we can identify what happen to our park request.
+    e.g 0 - full, 1 = vehicle parked, -1 = vehicle is over size
+     */
+    public Optional<Slot> parkVehicle(Vehicle vehicle) {
+        Optional<Slot> slot = this.getAvailableSlot();
+        if (slot.isEmpty()) {
+            System.out.println("Sorry, parking lot is full");
+            return slot;
+        }
+        slot.get().park(vehicle);
+        return slot;
+    }
+
+    public List<Slot> getAllocatedParkingSlots() {
+        return this.parkingSlots.stream()
+                .filter(slot -> slot.isAllocated())
+                .collect(Collectors.toList());
+    }
+
+    public List<Slot> getAllocatedParkingSlotByVehicleColor() {
+        return this.parkingSlots.stream()
+                .filter(slot -> slot.isAllocated())
+                .collect(Collectors.toList());
+    }
+
+    public Optional<Slot> isCarParkedWithRegistrationNo(String registrationNo) {
+        return this.parkingSlots
+                .stream()
+                .filter(slot -> registrationNo.equals(slot.getVehicle().getRegistrationNumber()))
+                .findAny();
     }
 }
