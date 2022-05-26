@@ -1,12 +1,13 @@
 package com.testorg.parking.model;
 
+import static java.util.Objects.nonNull;
+
 public class Slot {
     private int number;
     private Vehicle vehicle;
 
-    public Slot(int slot, Vehicle vehicle) {
+    public Slot(int slot) {
         this.number = slot;
-        this.vehicle = vehicle;
     }
 
     public int getNumber() {
@@ -23,5 +24,9 @@ public class Slot {
 
     public void removeVehicle() {
         this.vehicle = null;
+    }
+
+    public boolean isAllocated() {
+        return nonNull(this.vehicle);
     }
 }
