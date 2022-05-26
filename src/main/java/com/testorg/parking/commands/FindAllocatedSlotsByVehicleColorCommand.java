@@ -10,7 +10,7 @@ public class FindAllocatedSlotsByVehicleColorCommand implements Command {
 
     @Override
     public void execute(ParkingLot parkingLot, String[] args) {
-        List<Slot> allocatedSlots = parkingLot.getAllocatedParkingSlotByVehicleColor();
+        List<Slot> allocatedSlots = parkingLot.getAllocatedParkingSlotByVehicleColor(args[1]);
         String matchingSlotNos = allocatedSlots.stream()
                 .map(slot -> String.valueOf(slot.getNumber()))
                 .collect(Collectors.joining(","));

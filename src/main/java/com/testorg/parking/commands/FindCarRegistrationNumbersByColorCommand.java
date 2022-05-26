@@ -10,7 +10,7 @@ public class FindCarRegistrationNumbersByColorCommand implements Command {
 
     @Override
     public void execute(ParkingLot parkingLot, String[] args) {
-        List<Slot> allocatedSlots = parkingLot.getAllocatedParkingSlotByVehicleColor();
+        List<Slot> allocatedSlots = parkingLot.getAllocatedParkingSlotByVehicleColor(args[1]);
         String nos = allocatedSlots.stream()
                 .map(slot -> slot.getVehicle().getRegistrationNumber())
                 .collect(Collectors.joining(","));

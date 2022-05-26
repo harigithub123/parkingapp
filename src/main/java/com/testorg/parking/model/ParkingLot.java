@@ -77,9 +77,9 @@ public class ParkingLot {
                 .collect(Collectors.toList());
     }
 
-    public List<Slot> getAllocatedParkingSlotByVehicleColor() {
+    public List<Slot> getAllocatedParkingSlotByVehicleColor(String vehicleColor) {
         return this.parkingSlots.stream()
-                .filter(slot -> slot.isAllocated())
+                .filter(slot -> slot.isAllocated() && vehicleColor.equals(slot.getVehicle().getColour()))
                 .collect(Collectors.toList());
     }
 
