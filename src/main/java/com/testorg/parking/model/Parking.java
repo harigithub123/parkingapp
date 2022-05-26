@@ -1,7 +1,6 @@
 package com.testorg.parking.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,13 +15,12 @@ public class Parking {
         parkingSlots = new ArrayList<>();
     }
 
-    public void park(String registrationNo, String color) {
+    public void parkVehicle(Vehicle vehicle) {
         int slot = getAvailableSlot();
         if(slot == -1) {
             System.out.println("Sorry, parking lot is full");
             return;
         }
-        Vehicle vehicle = new Vehicle(registrationNo, color);
         parkingSlots.get(slot).park(vehicle);
         System.out.println("Allocated slot number: "+ slot);
     }
@@ -36,7 +34,7 @@ public class Parking {
         return -1;
     }
 
-    public void markSlotAsFree(int slot) {
+    public void removeVehicle(int slot) {
         parkingSlots.get(slot).removeVehicle();
         System.out.println("Slot number "+slot+" is free");
     }
@@ -51,16 +49,22 @@ public class Parking {
     }
 
     public void getRegistrationNumbersByColor(String color) {
-        String nos = parkingSlots.stream()
-                .filter(slot -> color.equals(slot.getVehicle().getColour()))
+        List<Slot> slots = getSlotsByVehicleColor(color);
+        String nos = slots.stream()
                 .map(slot -> slot.getVehicle().getRegistrationNumber())
                 .collect(Collectors.joining(","));
         System.out.println(nos);
     }
 
-    public void getSlotNumbersByColor(String color) {
-        String nos = parkingSlots.stream()
+    private List<Slot> getSlotsByVehicleColor(String color) {
+        return parkingSlots.stream()
                 .filter(slot -> color.equals(slot.getVehicle().getColour()))
+                .collect(Collectors.toList());
+    }
+
+    public void getSlotNumbersByColor(String color) {
+        List<Slot> slots = getSlotsByVehicleColor(color);
+        String nos = slots.stream()
                 .map(slot -> String.valueOf(slot.getNumber()))
                 .collect(Collectors.joining(","));
         System.out.println(nos);

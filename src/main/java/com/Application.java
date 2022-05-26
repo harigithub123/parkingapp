@@ -1,6 +1,7 @@
 package com;
 
 import com.testorg.parking.model.Parking;
+import com.testorg.parking.model.Vehicle;
 
 import java.util.Scanner;
 
@@ -19,10 +20,10 @@ public class Application {
 
             switch (values[0]) {
                 case "park" :
-                    parking.park(values[1], values[2]);
+                    parking.parkVehicle(new Vehicle(values[1], values[2]));
                     break;
                 case "leave":
-                    parking.markSlotAsFree(Integer.parseInt(values[1]));
+                    parking.removeVehicle(Integer.parseInt(values[1]));
                     break;
                 case "status":
                     parking.getStatus();
